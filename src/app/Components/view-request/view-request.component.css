@@ -1,0 +1,6 @@
+#mybtn
+{
+    position: fixed; /* or position: absolute; */
+    top: 10%;
+    right: 0;
+}

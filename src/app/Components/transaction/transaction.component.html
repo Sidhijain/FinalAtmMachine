@@ -1,0 +1,53 @@
+<div class="container-fluid g-0 " style="padding-left: 0%;">
+  <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+  <main>
+    <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+    <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}"style="padding: auto">
+
+      <h1 class="text-center">Transaction History</h1>
+
+      <div class="container">
+
+        <div class="card">
+
+          <table class="table">
+
+            <tr class="card-body">
+
+              <th>Transaction Date</th>
+
+              <th>To Account Number</th>
+
+              <th>From Account Number</th>
+
+              <th>Particulars</th>
+
+              <th>Amount</th>
+
+            </tr>
+
+            <tr *ngFor="let transaction of transactions" class="card-body">
+
+              <td>{{transaction.transactionDate | date :'medium'}}</td>
+
+              <td>{{transaction.toAccountNumber}}</td>
+
+              <td>{{transaction.fromAccountNumber}}</td>
+
+              <td>{{transaction.particulars}}</td>
+
+              <td *ngIf="transaction.transactionType ==='Withdrawal'" class="bi-dash"><i class="fa-solid fa-caret-down" style="color: #db2424;"></i>{{transaction.balance}}</td>
+
+              <td *ngIf="transaction.transactionType ==='Deposit'" class="bi-plus"><i class="fa-solid fa-caret-up" style="color: #22511f;"></i>{{transaction.balance}}</td>
+
+            </tr>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>

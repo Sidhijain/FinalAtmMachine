@@ -1,0 +1,105 @@
+<app-admin-home></app-admin-home><br><br>
+
+<div class="container">
+
+  <div class="alert alert-success alert-dismissible" *ngIf="cardLimitChangedSuccessfully">
+
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+    <strong>Success!</strong> Card Limit Changed Successfully
+
+  </div>
+
+  <div class="card card-decore">
+
+    <div class="card-body">
+
+      <h4 class="card-title center">Change Card Limit </h4><br>
+
+ 
+
+ 
+
+      <form #formUser="ngForm" class="validated">
+
+ 
+
+        <div class="form-group">
+
+          <label for="exampleFormControlSelect1">Type of Card</label>
+
+          <select class="form-control" id="exampleFormControlSelect1" name="card" [(ngModel)]="typeOfCard"
+
+            (ngModelChange)="changeCard()" required>
+
+            
+
+            <option value="Silver">Silver</option>
+
+            <option value="Gold">Gold</option>
+
+            <option value="Platinum">Platinum</option>
+
+          </select>
+
+        </div>
+
+ 
+
+        <div class="form-group">
+
+          <label for="exampleFormControlInput1">Set New Card Limit</label>
+
+          <input type="number" class="form-control" id="exampleFormControlInput1" #cardLimitOfUser="ngModel" required
+
+            placeholder="e.g 10000" [(ngModel)]="newCardLimit" name="cardLimit" pattern="^\d{0,10}(\.\d{0,2})?$">
+
+ 
+
+          <div *ngIf="cardLimitOfUser.invalid &&(cardLimitOfUser.dirty || cardLimitOfUser.touched)">
+
+ 
+
+            <small class="text-danger" *ngIf="cardLimitOfUser.errors?.['required']"> Amount is required </small>
+
+ 
+
+         </div>
+
+ 
+
+         <div *ngIf="cardLimitOfUser.invalid &&(cardLimitOfUser.dirty || cardLimitOfUser.touched)">
+
+ 
+
+            <small class="text-danger" *ngIf="cardLimitOfUser.errors?.['pattern']"> Amount should be greater than 0</small>
+
+ 
+
+         </div>
+
+         
+
+        </div>
+
+ 
+
+        <div class="form-group">
+
+          <input type="button" value="Submit" class="btn btn-primary center" [disabled]="formUser.invalid"
+
+            (click)="changingCardLimit(typeOfCard,newCardLimit)">
+
+        </div>
+
+ 
+
+      </form>
+
+ 
+
+    </div>
+
+  </div>
+
+</div>

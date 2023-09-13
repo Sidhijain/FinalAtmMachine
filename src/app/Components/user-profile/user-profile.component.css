@@ -1,0 +1,50 @@
+*{
+
+    overflow-y: auto;
+    overflow-x: auto;
+
+}
+
+ 
+
+ 
+
+.container {
+
+    background-color: rgb(249 246 246); /* Set the background color of the div */
+
+    border-radius: 10px;
+
+     /* Add a shadow */
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5);
+
+    transition: transform 0.3s ease-in-out; /* Add a transition for smooth effect */
+
+}
+
+ 
+
+.box{
+
+    background-color: black;
+
+    border-radius: 20px;
+
+}
+
+a{
+
+    cursor: pointer;
+
+}
+
+a:hover{
+
+    color: antiquewhite;
+
+}
+body{
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1)),url(src\assets\images\img4.jpg);
+}

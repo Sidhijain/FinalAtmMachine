@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid g-0 " style="padding-left: 0%;">
+        <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+        <main>
+            <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+            <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}"
+                style="padding: 0% !important;">
+
+                <div class="card" style=" box-shadow: 3px 2px lightgrey;">
+                    <div class="card-body">
+                        <h1 style="text-align: center;" class="font-weight-bold"><u>Frequently asked question</u></h1>
+                        <ol>
+                            <li ><b>How much is the charges for Card request?</b>
+                                <p>The charges varies according to the card request you made. </p>
+                                <p>For card replacement the request fee -> Is Rs.250</p>
+                                <p>For upgarde Card Type -></p>
+                                <p>1.Silver to gold -> Rs.250</p>
+                                <p>2.Gold to platinum -> Rs.330</p>
+                            </li>
+                            <li>
+                              <b>My debit card is expired. How I can replace it ?</b>  
+                                <p>You can replace your expired / blocked card from our any branch. </p>
+                            </li>
+                            <li>
+                             <b> What are the possible reasons for my card not working at ATMs?</b>  
+                                <p>The card might not be working if :</p>
+                                <ul>
+                                    <li> The balance is insufficient</li>
+                                   <li>The daily limit is reached</li>
+                                    <li>Wrong PIN</li>
+                                   <li>Damaged card</li>
+                                   <li> Card is not listed</li>
+                                   <li> Account is freezed or inoperative</li>
+                                   
+                                </ul>
+                            </li>
+                            <li><b>What happens if I enter a wrong PIN or forget my ATM PIN?</b>
+                                <p>When wrong pin is used you can reenter it or set new card pin</p>
+                            </li>
+                            <li><b>If my card type is Silver can i upgrade it to platinum?</b>
+                                <p>You can not upgrade directly to platinum you firstly need to upgrade to gold then you upgrade to platinum after specific time period</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

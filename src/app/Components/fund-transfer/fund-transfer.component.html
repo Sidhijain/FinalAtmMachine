@@ -1,0 +1,124 @@
+<div class="container-fluid g-0 " style="padding-left: 0%;">
+   <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+   <main>
+      <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+      <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}" style="padding: auto">
+
+         <div class="container">
+
+
+
+
+
+            <div class="alert alert-success alert-dismissible" *ngIf="message">
+
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+               <strong>{{message}}</strong>
+
+            </div>
+
+            <div class="alert alert-danger alert-dismissible" *ngIf="errorMessage">
+
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+               <strong>{{errorMessage}}</strong>
+
+            </div>
+
+
+
+            <div class="card">
+
+               <div class="card-body">
+
+                  <h3 class="card-text">Fund Transfer</h3>
+
+                  <form class="form-inline" #fundTransferForm="ngForm"></form>
+
+                  <div class="form-group" [hidden]="hideInputTag">
+
+                     <label for="userId" class="mb-2 mr-sm-2">UserId</label>
+
+                     <input type="string" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.userId"
+                        name="userId" id="userId" required>
+
+                  </div>
+
+                  <div class="form-group">
+
+                     <label for="transactionAmount" class="mb-2 mr-sm-2">Transaction Amount</label>
+
+                     <input type="number" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.transactionAmount"
+                        name="transactionAmount" id="transactionAmount" #transactionAmount="ngModel"
+                        pattern="^\d{0,10}(\.\d{0,2})?$" required>
+
+                     <div *ngIf="transactionAmount.invalid &&(transactionAmount.dirty || transactionAmount.touched)">
+
+                        <small class="text-danger" *ngIf="transactionAmount.errors?.['required']"> Amount is required
+                        </small>
+
+                     </div>
+
+                     <div *ngIf="transactionAmount.invalid &&(transactionAmount.dirty || transactionAmount.touched)">
+
+                        <small class="text-danger" *ngIf="transactionAmount.errors?.['pattern']"> Amount should be
+                           greater than 0</small>
+
+                     </div>
+
+                  </div>
+
+
+
+                  <div class="form-group">
+
+                     <label for="toAccountNumber" class="mb-2 mr-sm-2">To Bank Account Number</label>
+
+                     <input type="number" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.toAccountNumber"
+                        name="toAccountNumber" id="toAccountNumber" #toAccountNumber="ngModel" pattern="[0-9]{9,12}"
+                        required>
+                         {{fundTransfer.toAccountNumber}}
+
+                     <div *ngIf="toAccountNumber.invalid &&(toAccountNumber.dirty || toAccountNumber.touched)">
+
+                        <small class="text-danger" *ngIf="toAccountNumber.errors?.['required']"> Bank Account Number is
+                           required </small>
+
+                     </div>
+
+                     <div *ngIf="toAccountNumber.invalid &&(toAccountNumber.dirty || toAccountNumber.touched)">
+
+                        <small class="text-danger" *ngIf="toAccountNumber.errors?.['pattern']"> Bank Account Number
+                           should be of 12 digits</small>
+
+                     </div>
+
+                  </div>
+
+                  <div class="form-group">
+
+                     <label for="cardPin" class="mb-2 mr-sm-2">Pin</label>
+
+                     <input type="password" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.cardPin"
+                        name="cardPin" id="cardPin" #cardPin="ngModel" required>
+
+                     <div *ngIf="cardPin.invalid &&(cardPin.dirty || cardPin.touched)">
+
+                        <small class="text-danger" *ngIf="cardPin.errors?.['required']"> CardPin is required </small>
+
+                     </div>
+
+                  </div>
+
+                  <input type="submit" value="Pay" class="btn btn-success" [disabled]="!fundTransferForm.form.valid"
+                     (click)="fundsTransfer()">
+
+
+
+               </div>
+
+            </div>
+
+         </div>
+      </div>

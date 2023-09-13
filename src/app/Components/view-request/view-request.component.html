@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card1 {
+      max-width: 1000px;
+      text-align: center;
+      box-shadow: 3px 2px lightgrey;
+    }
+
+    /* card css */
+    .card2 {
+      max-width: 500px;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 3px 2px lightgrey;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid g-0 " style="padding-left: 0%; padding-top: 25%;">
+    <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+    <main>
+      <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+
+      <div class="display-area p-3"  [ngClass]="{'display-area-shrink':sideNavStatus}" style="padding: 4rem !important;">
+
+        <div *ngIf="!isLoaded">
+          <h3>Loading data</h3>
+        </div>
+        <div *ngIf="request.length>0 && !isUpdate">
+          <mat-card class="card1">
+
+            <mat-card-title>All requests</mat-card-title>
+            <br>
+            <mat-card-content>
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Request Type</th>
+                    <th scope="col">Request Description</th>
+                    <th scope="col">Date of request</th>
+                    <th scope="col">Admin Remark</th>
+                    <th scope="col-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let req of request">
+                    <td>{{req.request}}</td>
+                    <td>{{req.requestDesc}}</td>
+                    <td>{{req.dateOfRequest|date}}</td>
+                    <td>{{req.adminRemark}}</td>
+                    <td><button (click)="updateRequest(req.requestId)" class="btn btn-primary"><i
+                          class="fa-solid fa-edit"></i></button>&nbsp;
+                      <button (click)="deleteRequest(req.requestId)" class="btn btn-danger"><i
+                          class="fa-solid fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div *ngIf="request.length==0">
+          <h3>No Request to display</h3>
+        </div>
+        <!-- update -->
+
+
+        <div *ngIf="isUpdate">
+          <mat-card class="card2">
+            <mat-card-title>Update Request</mat-card-title>
+            <form (ngSubmit)="updateRequestSubmit()">
+              <div class="form-group ">
+                <label for="request">Type of request: </label>
+
+                <select name="request" id="request" name="request" [(ngModel)]="userRequest.request" required>
+                  <option value="" selected disabled>Select type of request</option>
+                  <option value="Card Replacement">Card Replacement</option>
+                  <option value="Card Block">Card Block</option>
+                  <option value="Upgrade Card Type">Upgrade Card Type
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Request description:</label>
+                <input type="text" placeholder="Write breif description" [(ngModel)]="userRequest.requestDesc"
+                  name="requestDesc" id="requestDesc" required>
+              </div>
+              <input type="submit" class="btn btn-success" value="Submit a request">
+            </form>
+
+
+          </mat-card>
+        </div>
+        <div class="alert alert-success alert-dismissible" *ngIf="isSuccess">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+      </div>
+      <button id="mybtn" class="btn btn-primary" (click)="onClick()">Create a new request</button>
+    </main>
+  </div>
+</body>
+
+</html>

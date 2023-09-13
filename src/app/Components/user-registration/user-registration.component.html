@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+<div class="min-vh-100 d-flex justify-content-center align-items-center common-container">   
+
+<div class="container w-50" *ngIf=!showOtpForm>
+
+    <h2 class="m-4 text-center">User Registration Form</h2>
+
+    <form  #userRegistrationForm="ngForm" (ngSubmit)="onSubmit()">
+
+        
+
+        <!-- alertBox -->
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorFromDatabase">
+
+            <strong>{{errorFromDatabase}}</strong>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+            </button>
+
+          </div>   
+
+          <!-- alert box finish -->
+
+ 
+
+        <div class="form-group">
+
+          <label for="username">User Name</label>
+
+          <input type="text" class="form-control" id="username" aria-describedby="emailHelp" #nameInput="ngModel" [(ngModel)]="userRegistration.userName" placeholder="Enter your Name" name="username" required [disabled]="otpSendingSpinner && errorFromDatabase==''" pattern="[A-Za-z]+">
+
+          <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+
+            <div *ngIf="nameInput.hasError('required')">
+
+                    <small class="text-danger">UserName is required.</small>
+
+            </div>
+
+          <div *ngIf="nameInput.hasError('pattern')">
+
+              <small class="text-danger">Enter valid UserName.</small>
+
+        </div>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="dob">Date Of Birth</label>
+
+          <input type="date" class="form-control" name="dob" [(ngModel)]="userRegistration.userDOB" id="dob" placeholder="Select the date"  required [disabled]="otpSendingSpinner && errorFromDatabase==''">
+
+          <div *ngIf="ageMustBeGreaterThatEighteen">
+
+            <small class="text-danger"> Sorry! your age is under 18.</small>
+
+          </div>
+
+          <!-- ngbDatepicker #dp="ngbDatepicker"
+
+            <button (click)="dp.toggle()"><i class="fa fa-calendar"></i></button> -->
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="phoneNo">Phone Number</label>
+
+            <input type="text" class="form-control" id="phoneNo" name="phoneNumber" #phoneNumber="ngModel" required [(ngModel)]="userRegistration.phoneNo" placeholder="Enter your Phone Number eg.,+91...." [disabled]="otpSendingSpinner && errorFromDatabase==''" pattern="^\+91[6-9][0-9]{9}$">
+
+            <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+
+              <div *ngIf="phoneNumber.hasError('required')">
+
+                <small class="text-danger">Phone number is required.</small>
+
+            </div>
+
+           <div *ngIf="phoneNumber.hasError('pattern')">
+
+             <small class="text-danger">Phone number be of 10 digit and must start with +91.</small>
+
+          </div>
+
+              </div>
+
+       
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="aadharNo">Aadhar Number</label>
+
+            <input type="number" class="form-control" id="aadharNo" name="aadharNo" #aadharNumber="ngModel" [(ngModel)]="userRegistration.aadharNumber" placeholder="Enter your Aadhar Number" inputmode="decimal" required [disabled]="otpSendingSpinner && errorFromDatabase==''" pattern="^\d{12}$">
+
+            <div *ngIf="aadharNumber.invalid && (aadharNumber.dirty || aadharNumber.touched)">
+
+                <small class="text-danger">Invalid Aadhar card number format (12 digits required).</small>
+
+              </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="email">Email Id</label>
+
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" required email #emailInput="ngModel" [(ngModel)]="userRegistration.emailId" placeholder="Enter your email id" [disabled]="otpSendingSpinner && errorFromDatabase==''">
+
+            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+
+                <div *ngIf="emailInput.hasError('required')">
+
+                    <span class="text-danger">Email is required.</span>
+
+                  </div>
+
+                  <div *ngIf="emailInput.hasError('email')">
+
+                    <span class="text-danger"> Please enter a valid email address.</span>
+
+                  </div>
+
+            </div>
+
+        </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+
+            <label for="password">Password</label>
+
+            <input type="text" class="form-control" id="password" name="password" #passwordInput="ngModel" required [(ngModel)]="userRegistration.password" placeholder="Enter your Password" [disabled]="otpSendingSpinner && errorFromDatabase==''" minlength="8">
+
+            <div *ngIf="!isPasswordValid() && passwordInput.touched">
+
+                <small class="text-danger"> Password is required and must contain at least one uppercase letter, one lowercase letter, one number, and one special character.</small>
+
+              </div>
+
+        </div>
+
+        <div class="form-group col-md-6">
+
+            <label for="cpassword">Confirm Password</label>
+
+            <input type="text" class="form-control" id="cpassword" name="cpassword" [(ngModel)]="userRegistration.confirmPassword" #confirmPasswordInput="ngModel" placeholder="Enter your Password again" required [disabled]="otpSendingSpinner && errorFromDatabase==''">
+
+            <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)">
+
+              <small class="text-danger">Confirm Password is required.</small>
+
+            </div>
+
+            <div *ngIf="passwordNotMatchMessage">
+
+                <small class="text-danger"> Password should be matched.</small>
+
+              </div>
+
+        </div>
+
+    </div>
+
+        
+
+        <div class="mt-4">
+
+            <h5>Address Details</h5>
+
+            <div class="form-group">
+
+                <label for="street">Street</label>
+
+                <input type="text" class="form-control" id="street" name="street" [(ngModel)]="userRegistration.address.street" placeholder="Enter your street" [disabled]="otpSendingSpinner && errorFromDatabase==''">
+
+            </div>
+
+            <div class="form-row">
+
+            <div class="form-group col-md-5">
+
+                <label for="district">District</label>
+
+                <input type="text" class="form-control" id="district" name="district" [(ngModel)]="userRegistration.address.district" placeholder="Enter your District" [disabled]="otpSendingSpinner && errorFromDatabase==''">
+
+            </div>
+
+            <div class="form-group col-md-5 offset-md-1">
+
+                <label for="pincode">Pincode</label>
+
+                <input type="number" class="form-control" id="pincode" name="pincode" [(ngModel)]="userRegistration.address.pincode" placeholder="Enter your pincode" [disabled]="otpSendingSpinner && errorFromDatabase==''" inputmode="numeric">
+
+            </div>
+
+        </div>
+
+            <div class="form-group">
+
+            <label for="state">Select a State:</label>
+
+            <select id="state" name="state" [disabled]="otpSendingSpinner && errorFromDatabase==''" [(ngModel)]="userRegistration.address.state">
+
+            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+
+            </select>
+
+        </div>
+
+    
+
+        </div>
+
+        <div class="text-center mb-2">
+
+    <input type="submit" class="btn btn-primary" value="Submit" [disabled]="userRegistrationForm.invalid || (otpSendingSpinner && errorFromDatabase=='')">
+
+ 
+
+    <div class="d-inline ml-4 mt-2" *ngIf="otpSendingSpinner && errorFromDatabase==''" [hidden]="otpSendingSpinner && errorFromDatabase==''">
+
+        <div class="spinner-border text-primary text-center" role="status">
+
+        </div>  
+
+        <span>sending OTP....</span>
+
+       </div>     
+
+</div>
+
+    </form>
+
+    
+
+</div>
+
+ 
+
+<!-- OTP form -->
+
+<div class="container w-25 text-center otp-class p-5" *ngIf="showOtpForm">
+
+ 
+
+   
+
+ 
+
+    <h2 class="text-center">Enter OTP</h2>
+
+    <h6 class="text-success">Check your email for the OTP</h6>
+
+    <div>
+
+    <form #otpForm="ngForm" (ngSubmit)="submitOtpForm()">
+
+ 
+
+       <!-- error alert message -->
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+
+      <strong>Sorry!</strong> {{errorMessage}}
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+      </button>
+
+    </div>
+
+ 
+
+        <div class="form-group">
+
+          <label for="emailOtp">Enter Email OTP</label>
+
+          <input type="number" class="form-control" id="emailOtp" aria-describedby="emailHelp" name="emailOtp" #emailOtpInput="ngModel" required [(ngModel)]="userTypedOtp.emailOtp" placeholder="Enter your otp here" inputmode="numeric">
+
+          <div *ngIf="emailOtpInput.invalid && (emailOtpInput.dirty || emailOtpInput.touched)">
+
+            <small class="text-danger">Email Otp is required.</small>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="smsOtp">Enter SMS OTP</label>
+
+          <input type="number" class="form-control" id="smsOtp" aria-describedby="emailHelp" name="phoneNumberOtp" #smsOtpInput="ngModel" required [(ngModel)]="userTypedOtp.phoneNumberOtp" placeholder="Enter your otp here" inputmode="numeric">
+
+          <div *ngIf="smsOtpInput.invalid && (smsOtpInput.dirty || smsOtpInput.touched)">
+
+            <small class="text-danger">Email Otp is required.</small>
+
+          </div>
+
+        </div>
+
+        <div class="text-center mb-2">
+
+        <input type="submit" class="btn btn-primary" value="Submit" [disabled]="otpForm.invalid || (otpSendingSpinner && errorMessage=='')">
+
+    </div>
+
+    <div class="text-center mt-2 mb-3" *ngIf="otpSendingSpinner && errorMessage==''">
+
+        <div class="spinner-border text-primary text-center" role="status">
+
+        </div>  
+
+        <span>sending card....</span>
+
+       </div>  
+
+      </form>
+
+      </div>
+
+</div>
+
+</div>
+
+ 
+
+</body>
+
+</html>
+

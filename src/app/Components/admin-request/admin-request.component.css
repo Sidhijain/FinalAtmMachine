@@ -1,0 +1,15 @@
+.overall-container{
+
+    display: flex;
+
+    justify-content: space-between;
+
+}
+
+ 
+
+.card-decore{
+
+    box-shadow: 2px 2px grey;
+
+}

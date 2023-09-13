@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div class="min-vh-100 d-flex justify-content-center align-items-center common-container">
+
+    <div class="container w-50">
+
+        <h2 class="m-4 text-center">Login Form</h2>
+
+        <form  #userLoginForm="ngForm" (ngSubmit)="loginFormSubmit()">
+
+            
+
+            <!-- error alert message -->
+
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorFromDatabse">
+
+            <strong>{{errorFromDatabse}}</strong>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+            </button>
+
+            </div>  <!-- finish alert -->
+
+           
+
+            
+
+            <div class="form-group">
+
+                <label for="email">Email Id</label>
+
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" required #emailInput="ngModel" [(ngModel)]="userLoginDetails.emailId" email [disabled]="makeInputTagDisable && errorFromDatabse==''" placeholder="Enter your email id">
+
+                <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+
+                    <div *ngIf="emailInput.hasError('required')">
+
+                        <span class="text-danger">Email is required.</span>
+
+                      </div>
+
+                      <div *ngIf="emailInput.hasError('email')">
+
+                        <span class="text-danger"> Please enter a valid email address.</span>
+
+                      </div>
+
+                </div>
+
+           
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="password">Password</label>
+
+                <input type="text" class="form-control" id="password" name="password" required #passwordInput="ngModel" [(ngModel)]="userLoginDetails.password" [disabled]="makeInputTagDisable && errorFromDatabse==''" placeholder="Enter your Password" minlength="8">
+
+                <div *ngIf="!isPasswordValid() && passwordInput.touched">
+
+                        <span class="text-danger">Password is required and 8 character long.</span>
+
+                      </div>
+
+            </div>
+
+            <div class="d-inline">
+
+                <small><a routerLink="/forgotPassword">Forgot your password?</a></small>
+
+            </div>
+
+            
+
+            <div class="text-center mb-2">
+
+        <input type="submit" class="btn btn-success" value="Submit" [disabled]="userLoginForm.invalid && errorFromDatabse==''">
+
+      </div>
+
+        </form>
+
+        <div class="d-flex justify-content-between m-3">
+
+            <div class="d-inline"><small>New to ATM?</small><a routerLink="/registration">Signup</a></div>
+
+            <div class="d-inline" *ngIf="cardGetActivateLink"><small> Card not added yet?</small><a routerLink="/card">add card</a></div>
+
+        </div>
+
+    </div>
+
+   
+
+    </div>
+
+</body>
+
+</html>
+
+ 

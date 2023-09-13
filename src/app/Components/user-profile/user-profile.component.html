@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+    
+    <div>
+        <button><a class="text-success" routerLink="/home"> Back to Home Page>>>> </a></button>
+       </div>
+
+    <div class="min-vh-100 d-flex justify-content-center align-items-center common-container">
+
+    <div class="container w-50">
+
+        <div class="box m-3 p-4">
+
+            
+
+            <table>
+
+                <tr>
+
+                    <td class="w-75"><i class="text-primary fa-solid fa-user fa-5x"></i></td>
+
+                    <td><h2 class="tect-center text-light">{{cardDetails.userRegistration?.userName}}</h2></td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div>
+
+        <h5>Personal Details</h5>
+
+        <div class="border mb-4">
+
+            <div>
+
+                <table class="table table-striped">
+
+                    <tr>
+
+                        <th>Email:</th>
+
+                        <td>{{cardDetails.userRegistration?.emailId}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Aadhar Number:</th>
+
+                        <td>{{cardDetails.userRegistration?.aadharNumber}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Phone Number:</th>
+
+                        <td>{{cardDetails.userRegistration?.phoneNo}}</td>
+
+                        <td><a (click)="showDiv('div1')"><i class="text-primary fa-solid fa-pen-to-square"></i></a></td>
+
+                    </tr>
+
+                    <tr class="mb-1">
+
+                        <th>Address:</th>
+
+                        <td>
+
+                            <tr>
+
+                                <th>Street:</th>
+
+                                <td>{{cardDetails.userRegistration?.address?.street}}</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>District:</th>
+
+                                <td>{{cardDetails.userRegistration?.address?.district}}</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>State:</th>
+
+                                <td>{{cardDetails.userRegistration?.address?.state}}</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>Pincode:</th>
+
+                                <td>{{cardDetails.userRegistration?.address?.pincode}}</td>
+
+                            </tr>
+
+                        </td>
+
+                        <td><a (click)="showDiv('div2')"><i class="text-primary fa-solid fa-pen-to-square mt-2"></i></a></td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   
+
+    <div>
+
+        <h5>Card Details</h5>
+
+        <div class="border mb-4">
+
+            <div>
+
+                <table class="table">
+
+                    <tr>
+
+                        <th class="w-50">Account Number:</th>
+
+                        <td>{{cardDetails.accountNumber}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Card Number:</th>
+
+                        <td>{{cardDetails.cardNumber}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>CVV:</th>
+
+                        <td>{{cardDetails.cvv}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Expiry Date:</th>
+
+                        <td>{{cardDetails.validThrough}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Card Type:</th>
+
+                        <td>{{cardDetails.cardType}}</td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="div1" *ngIf="showDiv1" class="border">
+
+        <div *ngIf="!showOtpForm">
+
+        <form #phoneNoForm="ngForm" (ngSubmit)="submitPhoneNoForm()">
+
+ 
+
+            <!-- alertBox -->
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorFromDatabse">
+
+                <strong>{{errorFromDatabse}}</strong>
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+                  <span aria-hidden="true">&times;</span>
+
+                </button>
+
+                </div>    <!-- alert finish -->
+
+              
+
+            <div class="form-group">
+
+                <h4 class="text-center"><label for="phoneNo">Reset Phone Number</label></h4>
+
+                <input type="text" class="form-control" id="phoneNo" name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="userRegistration.phoneNo" required [disabled]="showSpinner && errorFromDatabse==''" placeholder="Enter your Phone Number eg.,+91...." pattern="^\+91[6-9][0-9]{9}$">
+
+                <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+
+                  <div *ngIf="phoneNumber.hasError('required')">
+
+                    <small class="text-danger">Phone number is required.</small>
+
+                </div>
+
+               <div *ngIf="phoneNumber.hasError('pattern')">
+
+                 <small class="text-danger">Phone number be of 10 digit and must start with +91.</small>
+
+              </div>
+
+                  </div>
+
+           
+
+            </div>
+
+            <div class="text-center mb-2">
+
+                <input type="submit" class="btn btn-primary" value="send OTP" [disabled]="phoneNoForm.invalid || (showSpinner && errorFromDatabse=='')">
+
+            
+
+                <div class="d-inline ml-4 mt-2" *ngIf="showSpinner && errorFromDatabse==''">
+
+                    <div class="spinner-border text-primary text-center" role="status">
+
+                    </div>  
+
+                    <span>sending SMS....</span>
+
+                   </div>     
+
+            </div>
+
+        </form>
+
+    </div>
+
+<!-- Otp Form div -->
+
+    <div *ngIf="showOtpForm">
+
+    
+
+        <h2 class="text-center">Enter OTP</h2>
+
+        <h6 class="text-success text-center">Check your SMS for the OTP</h6>
+
+        <div>
+
+        <form #otpForm="ngForm" (ngSubmit)="submitOtpForm()">
+
+            
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+
+                <strong>Sorry!</strong> {{errorMessage}}
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+                  <span aria-hidden="true">&times;</span>
+
+                </button>
+
+              </div>
+
+ 
+
+ 
+
+            <div class="form-group">
+
+              <input type="number" class="form-control" id="smsOtp" aria-describedby="emailHelp" name="phoneNumberOtp" #smsOtpInput="ngModel" required [(ngModel)]="userTypedOtp" placeholder="Enter your otp here" inputmode="numeric">
+
+              <div *ngIf="smsOtpInput.invalid && (smsOtpInput.dirty || smsOtpInput.touched)">
+
+                <small class="text-danger">Email Otp is required.</small>
+
+              </div>
+
+            </div>
+
+            <div class="text-center mb-2">
+
+            <input type="submit" class="btn btn-primary" value="Update Phone number" [disabled]="otpForm.invalid">
+
+        </div>
+
+          </form>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <div id="div2" *ngIf="showDiv2" class="border">
+
+        
+
+        
+
+            <form  #addressForm="ngForm" (ngSubmit)="submitAddressForm()">
+
+                
+
+               <div class="mt-2">
+
+                    <h5 class="tect-center">Update Address Details</h5>
+
+                    <div class="form-group">
+
+                        <label for="street">Street</label>
+
+                        <input type="text" class="form-control" id="street" name="street" [(ngModel)]="address.street" placeholder="Enter your street">
+
+                    </div>
+
+                    <div class="form-row">
+
+                    <div class="form-group col-md-5">
+
+                        <label for="district">District</label>
+
+                        <input type="text" class="form-control" id="district" name="district" [(ngModel)]="address.district" placeholder="Enter your District">
+
+                    </div>
+
+                    <div class="form-group col-md-5 offset-md-1">
+
+                        <label for="pincode">Pincode</label>
+
+                        <input type="number" class="form-control" id="pincode" name="pincode" [(ngModel)]="address.pincode" placeholder="Enter your pincode" inputmode="numeric">
+
+                    </div>
+
+                </div>
+
+                    <div class="form-group">
+
+                    <label for="state">Select a State:</label>
+
+                    <select id="state" name="state" [(ngModel)]="address.state">
+
+                    <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+
+                    </select>
+
+                </div>
+
+            
+
+                </div>
+
+                <div class="text-center mb-2">
+
+            <input type="submit" class="btn btn-primary" value="Update Address">
+        </div>
+
+            </form>
+        </div>
+
+    </div>
+
+   </div>
+   
+</body>
+
+</html>

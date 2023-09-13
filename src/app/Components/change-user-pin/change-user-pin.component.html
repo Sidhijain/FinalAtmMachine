@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+
+        <div class="mt-5" (click)="verifyemail()">
+
+            <input type="submit" class="btn btn-primary" value="Verifying email for Change PIN" [disabled]="showOtpForm || showPinForm">
+
+        </div>
+
+ 
+
+        <!-- Otp Form -->
+
+        <!-- Otp Form div -->
+
+    <div *ngIf="showOtpForm" class="mt-5">
+
+    
+
+        <h2 class="text-center">Enter OTP</h2>
+
+        <h6 class="text-success text-center">Check your Email for the OTP</h6>
+
+        <div class="mt-5">
+
+        <form #otpForm="ngForm" (ngSubmit)="submitOtpForm()">
+
+            
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage">
+
+                <strong>Sorry!</strong> {{errorMessage}}
+
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+                  <span aria-hidden="true">&times;</span>
+
+                </button>
+
+              </div>
+
+ 
+
+ 
+
+            <div class="form-group">
+
+              <input type="number" class="form-control" id="emailOtp" aria-describedby="emailHelp" name="emailOpt" #emailOtpInput="ngModel" required [(ngModel)]="userTypedOtp" placeholder="Enter your otp here" inputmode="numeric">
+
+              <div *ngIf="emailOtpInput.invalid && (emailOtpInput.dirty || emailOtpInput.touched)">
+
+                <small class="text-danger">Email Otp is required.</small>
+
+              </div>
+
+            </div>
+
+            <div class="text-center mb-2">
+
+            <input type="submit" class="btn btn-primary" value="Verify OTP" [disabled]="otpForm.invalid">
+
+        </div>
+
+          </form>
+
+    </div>
+
+    </div>
+
+ 
+
+    <!-- User PIN change -->
+
+    <div *ngIf="showPinForm">
+
+        
+
+        <div class="mt-5">
+
+            <h3 class="m-2">Reset yoour PIN</h3>
+
+            <form #pinForm="ngForm" (ngSubmit)="submitPinForm()">
+
+ 
+
+                <div class="form-group">
+
+                  <input type="number" class="form-control" id="pin" aria-describedby="emailHelp" name="pin" #pinInput="ngModel" required [(ngModel)]="cardDetails.cardPin" minlength="6" maxlength="6" placeholder="Enter your PIN here" inputmode="numeric" pattern="[0-9]{6}">
+
+                  <div *ngIf="pinInput.invalid && (pinInput.dirty || pinInput.touched)">
+
+                   <div *ngIf="pinInput.hasError('required')">
+
+                    <small class="text-danger">PIN is required.</small>
+
+                  </div>
+
+                  <div *ngIf="pinInput.hasError('pattern')">
+
+                    <small class="text-danger">PIN must be of 6 digit.</small>
+
+                  </div>
+
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <input type="number" class="form-control" id="cpin" aria-describedby="emailHelp" name="cpin" #cpinInput="ngModel" required [(ngModel)]="confirmPIN" minlength="6" maxlength="6" placeholder="Enter your confirm PIN here" inputmode="numeric" pattern="[0-9]{6}">
+
+                    <div *ngIf="cpinInput.invalid && (cpinInput.dirty || cpinInput.touched)">
+
+                      <div *ngIf="cpinInput.hasError('required')">
+
+                        <small class="text-danger">PIN is required.</small>
+
+                      </div>
+
+                      <div *ngIf="cpinInput.hasError('pattern')">
+
+                        <small class="text-danger">Confirm PIN must be of 6 digit.</small>
+
+                      </div>
+
+                    </div>
+
+                    <div *ngIf="errorMessage">
+
+                      <small class="text-danger"> Confirm pin should be matched.</small>
+
+                    </div>
+
+                  </div>
+
+                <div class="text-center mb-2">
+
+                <input type="submit" class="btn btn-primary" value="Reset PIn" [disabled]="pinForm.invalid">
+
+            </div>
+
+              </form>
+
+        </div>
+
+        </div>
+
+ 
+
+        <div *ngIf="successMessage" class="d-inline success bg-success mt-5">
+
+          <h2 class="mt-5">Pin changed Successfully</h2>
+
+        </div>
+
+     </div>
+
+</body>
+
+</html>
+
+ 

@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark px-2 " >
+    <div class="side-nav-button p-2 me-3 text-light" (click)="SideNavToggle()">
+        <i class="fa-solid fa-bars "></i>        
+    </div>
+    <a class="navbar-brand px-4" href="#">Atm Machine</a>
+    <!-- <h3 class="navbar-brand px-4">Atm Machine</h3> -->
+    
+    <div class="navbar-collapse">
+        <!-- search bar -->
+        <!-- <h3>Hi users</h3> -->
+        <!-- <ul class="navbar-nav me-auto">
+            <li class="nav-tem dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Hi user</a>
+            </li>
+        </ul> -->
+    </div>
+    <!-- Search -->
+    <!-- <form class="d-flex me-5">
+        <input class="form-control me-2" type="search" placeholder="search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+    </form> -->
+    <div class="profile-logo dropdown">
+        <button class ="btn btn-outline-light dropdown-toggle" data-toggle="dropdown">
+            Hello user <i class="fa-solid fa-face-smile fa-bounce"></i>
+        </button>
+        
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+            <li><a routerLink="/profile" class="dropdown-item">Edit Profile</a></li>
+            <li><a  class="dropdown-item" (click)="logoutSubmit()">Logout</a></li>
+        </ul>
+    </div>
+   
+</nav>

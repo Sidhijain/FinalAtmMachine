@@ -1,0 +1,131 @@
+<div class="container-fluid g-0 " style="padding-left: 0%;">
+    <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+    <main>
+        <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+        <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}"
+            style="padding: 0% !important;">
+
+<div class="container" style="display: grid; place-items: center; height: 100vh;">
+
+    <div class="container" class="text-center" class="alert alert-success alert-dismissible" *ngIf="message">
+
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+        <strong>{{message}}</strong>
+
+    </div>
+
+ 
+
+    <div class="alert alert-danger alert-dismissible" *ngIf="errorMessage">
+
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+        <strong>{{errorMessage}}</strong>
+
+    </div>
+
+ 
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <h1 class="card-text">Electricity Bill Payments : {{vendor}}</h1>
+
+ 
+
+            <form class="form-inline" #electricityBillForm="ngForm"></form>
+
+ 
+
+            <div class="form-group">
+
+ 
+
+                <label for="userElectricityId" class="mb-2 mr-sm-2">Enter your ElectricityBill Id:</label>
+
+                <input type="text" class="form-control mb-2 mr-sm-2" [(ngModel)]="electricityBill.userElectricityId"
+
+                    name="userElectricityId" id="userElectricityId" #userElectricityId="ngModel" required>
+
+ 
+
+                <div *ngIf="userElectricityId.invalid &&(userElectricityId.dirty || userElectricityId.touched)">
+
+ 
+
+                    <small class="text-danger" *ngIf="userElectricityId.errors?.['required']"> Id is required
+
+                    </small>
+
+ 
+
+                </div>
+
+            </div>
+
+ 
+
+ 
+
+            <div class="form-group">
+
+                <mat-form-field>
+
+ 
+
+                    <mat-label>Enter your pin</mat-label>
+
+ 
+
+                    <input matInput [type]="hide ? 'password' : 'text'" type="password"
+
+                        class="form-control mb-2 mr-sm-2" [(ngModel)]="electricityBill.cardPin" name="cardPin"
+
+                        id="cardPin" required>
+
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+
+                        [attr.aria-pressed]="hide">
+
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+                    </button>
+
+                </mat-form-field>
+
+            </div>
+
+            <input type="submit" value="Check amount" class="btn btn-success" [disabled]="electricityBillForm.invalid"
+
+                (click)="payElectricityAmount()">
+
+ 
+
+        </div>
+
+ 
+
+ 
+
+ 
+
+ 
+
+        <form #orderForm="ngForm" (ngSubmit)="createTransactionAndPay(orderForm)">
+
+            <div>
+
+                <button type="submit">pay</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+</div>
+</main>
+</div>

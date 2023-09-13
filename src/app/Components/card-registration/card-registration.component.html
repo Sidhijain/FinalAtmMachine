@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Card</title>
+
+</head>
+
+<body>
+
+    <div class="min-vh-100 d-flex justify-content-center align-items-center common-container">
+
+    <div class="container w-50">
+
+        <h2 class="m-4 text-center">Card Registration</h2>
+
+        <h6 class="text-success text-center">Check your email for the Debit Card</h6>
+
+        <form #cardForm="ngForm" (ngSubmit)="cardSubmit()">
+
+            
+
+          <!-- error alert message -->
+
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorFromDatabase">
+
+            <strong>{{errorFromDatabase}}</strong>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+              <span aria-hidden="true">&times;</span>
+
+            </button>
+
+          </div>
+
+ 
+
+            <div class="form-group">
+
+              <label for="accountNumber">Account Number</label>
+
+              <input type="number" class="form-control" id="accountNumber" name="accountNumber" aria-describedby="emailHelp"  #accountNumberInput="ngModel" required [(ngModel)]="cardDetails.accountNumber" readonly pattern="[0-9]{12}" placeholder="Enter your Account Number">
+
+              <div *ngIf="accountNumberInput.invalid && (accountNumberInput.dirty || accountNumberInput.touched)">
+
+                <div *ngIf="accountNumberInput.hasError('required')">
+
+                  <small class="text-danger"> Account number is required.</small>
+
+                  </div>
+
+                <div *ngIf="accountNumberInput.hasError('pattern')">
+
+                  <small class="text-danger">Account number must be 12 digit long.</small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+ 
+
+            <div class="form-group">
+
+                <label for="cardNumber">Card Number</label>
+
+                <input type="number" class="form-control" id="cardNumber" name="cardNumber" aria-describedby="emailHelp"  #cardNumberInput="ngModel" required [(ngModel)]="cardDetails.cardNumber" pattern="[0-9]{16}" readonly placeholder="Enter your card Number">
+
+                <div *ngIf="cardNumberInput.invalid && (cardNumberInput.dirty || cardNumberInput.touched)">
+
+                  <div *ngIf="cardNumberInput.hasError('required')">
+
+                    <small class="text-danger"> Card number is required.</small>
+
+                    </div>
+
+                  <div *ngIf="cardNumberInput.hasError('pattern')">
+
+                    <small class="text-danger">Card number must be 16 digit long.</small>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+ 
+
+              <div class="form-group">
+
+                <label for="amount">Amount to start New Account</label>
+
+                <input type="number" class="form-control" id="amount" name="amount" aria-describedby="emailHelp"  #amountInput="ngModel" required [(ngModel)]="cardDetails.amount" readonly placeholder="Enter amount greater or equal 2000.0">
+
+                <div *ngIf="amountInput.invalid && (amountInput.dirty || amountInput.touched)">
+
+                  <div *ngIf="amountInput.hasError('required')">
+
+                  <small class="text-danger"> Amount is required.</small>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            
+
+            <div class="text-center mb-3">
+
+        <input type="submit" class="btn btn-primary" value="Submit" [disabled]="cardForm.invalid || (sendingPinSpinner && errorFromDatabase=='')">
+
+         </div>
+
+        
+
+         <div class="text-center mt-2 mb-3" *ngIf="sendingPinSpinner && errorFromDatabase==''">
+
+        <div class="spinner-border text-primary text-center" role="status">
+
+        </div>  
+
+        <span>sending CardPin....</span>
+
+       </div>
+
+ 
+
+        </form>
+
+        
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
+
+ 

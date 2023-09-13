@@ -1,0 +1,149 @@
+<app-admin-home></app-admin-home><br><br>
+
+<div class="container">
+
+    <div class="dropdown">
+
+        <!--  -->
+
+        <div class="form-group">
+
+            <label for="exampleFormControlSelect1">Type of Request</label>
+
+            <select class="form-control" id="request" name="request" [(ngModel)]="typeOfRequest"
+
+                (ngModelChange)="changeRequest()" required>
+
+                <option value="">Select</option>
+
+                <option value="Card Block">Card Block</option>
+
+                <option value="Card Replacement">Card Replacement</option>
+
+                <option value="Upgrade Card Type">Upgrade Card Type</option>
+
+            </select>
+
+ 
+
+        </div>
+
+    </div><br>
+
+ 
+
+    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">See All Pending
+
+        Requests here: <span class="badge badge-light">{{requestsAll.length}}</span></button>
+
+ 
+
+    <br><br>
+
+    <div *ngIf="requestsAll.length == 0">
+
+        <h4>No Pending Requests to display</h4>
+
+    </div>
+
+ 
+
+    <div id="demo" class="collapse"><br>
+
+        <h4 class="card-title" *ngIf="requestsAll.length > 0">Pending Requests</h4>
+
+        <div class="alert alert-success alert-dismissible" *ngIf="requestApprovalMessage">
+
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+            <strong>Success!</strong> {{requestApprovalMessage}}
+
+        </div>
+
+ 
+
+        <div class="alert alert-danger alert-dismissible" *ngIf="requestErrorMessage">
+
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+            <strong> Not Success!</strong>{{requestErrorMessage}}
+
+          </div>
+
+ 
+
+        <div *ngIf="requestsAll.length > 0">
+
+            <div *ngFor="let r of requestsAll">
+
+                <div class="card card-decore">
+
+                    <div class="card-body">
+
+ 
+
+                        <div>
+
+                            <div class="overall-container">
+
+                                <div class="cont1">
+
+                                    <p class="card-text">Request : {{r.request}}</p>
+
+                                    <p class="card-text">Request Date : {{r.dateOfRequest | date }}</p>
+
+                                    <p class="card-text">Request Description: {{r.requestDesc}}</p>
+
+                                </div>
+
+                                <div class="cont2">
+
+                                    <input type="button" value="Approve" class="btn btn-success"
+
+                                        (click)="approveCardLostRequestByAdmin(r.requestId)">
+
+ 
+
+                                </div>
+
+                            </div>
+
+ 
+
+ 
+
+                            <div>
+
+                                <form action="">
+
+                                    <p class="card-text">Admin Remark: {{r.adminRemark}}</p>
+
+                                    <input type="text" size="60" [(ngModel)]="r.adminRemark" name="adminRemark">
+
+                                    <br><br>
+
+                                    <input type="button" class="btn btn-primary" value="Set Remark"
+
+                                        (click)="setRemarkByAdmin(r.adminRemark,r.requestId)">
+
+                                </form>
+
+ 
+
+                            </div>
+
+ 
+
+                        </div>
+
+                    </div>
+
+                </div><br><br>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

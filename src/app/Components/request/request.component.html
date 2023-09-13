@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* card css */
+        .card1 {
+            max-width: 500px;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 3px 2px lightgrey;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid g-0 " style="padding-left:0%;">
+        <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+        <main>
+            <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+            <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}"
+                style="padding-left: 20% !important;">
+                <!--Main Navigation-->
+                <main>
+                    <div class="container pt-4"></div>
+
+
+                    <mat-card class="card1">
+                        <mat-card-title><b>Raise a request</b></mat-card-title><br>
+                        <mat-card-content>
+                            <div class="alert alert-success alert-dimissible" role="alert" *ngIf="message">
+                                <button type="button" class="close" data-dismiss="alert"
+                                    aria-label="Close">&times;</button>
+                                <strong>{{message}}</strong>
+                            </div>
+                            <div class="alert alert-danger alert-dimissible" role="alert" *ngIf="errorMessage">
+                                <button type="button" class="close" data-dismiss="alert"
+                                    aria-label="Close">&times;</button>
+                                <strong>{{errorMessage}}</strong>
+                            </div>
+                            <form (ngSubmit)="addRequest()" #requestForm="ngForm">
+                                <div class="form-group ">
+
+                                    <label for="request">Type of request </label>
+
+                                    <select name="request" id="request" name="request" [(ngModel)]="userRequest.request"
+                                        #request="ngModel" class="form-control" required>
+                                        <option value="" selected disabled>Select type of request</option>
+                                        <option value="Card Replacement">Card Replacement</option>
+                                        <option value="Card Block">Card Block</option>
+                                        <option value="Upgrade Card Type" *ngIf="cardType !='Platinum'">Upgrade Card Type
+                                        </option>
+                                    </select>
+                                    <div *ngIf="request.invalid &&(request.dirty || request.touched)">
+                                        <small class="text-danger" *ngIf="request.errors?.['required']"> Request type is
+                                            required
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Request description</label>
+                                    <input type="text" placeholder="Write breif description" class="form-control"
+                                        [(ngModel)]="userRequest.requestDesc" name="requestDesc" id="requestDesc"
+                                        #requestDesc="ngModel" required>
+                                    <div *ngIf="requestDesc.invalid &&(requestDesc.dirty || requestDesc.touched)">
+
+                                        <small class="text-danger" *ngIf="request.errors?.['required']"> Request
+                                            Description type is required
+                                        </small>
+
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-success" value="Submit a request"
+                                    [disabled]="requestForm.invalid" >
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
+
+                    <button id="mybtn" class="btn btn-primary" (click)="onClick()">view all request</button>
+        
+                </main>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
