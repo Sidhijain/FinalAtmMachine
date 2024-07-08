@@ -72,9 +72,9 @@ cardGetActivateLink:boolean=false;
 
     if(this.userLoginDetails.emailId=="shivam.admin@gmail.com" && this.userLoginDetails.password=="Admin@789"){
 
-      alert("Congrats you are admin");
+      alert("You are login as an admin");
 
-      sessionStorage.setItem("isAdminLoggedIn","true");
+      sessionStorage.setItem("isLoggedin","true");
 
       sessionStorage.setItem("ID","admin1");
 

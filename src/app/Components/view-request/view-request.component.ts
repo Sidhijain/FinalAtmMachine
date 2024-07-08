@@ -107,8 +107,8 @@ export class ViewRequestComponent {
   }
   deleteRequest(deleteId:string){
     console.log(deleteId);
-    if(confirm("Are you sure to delete ")) {
-      console.log("Implement delete functionality here");
+    if(confirm("Are you sure you want to delete the request ")) {
+      // console.log("Implement delete functionality here");
     
     this.requestService.deleteRequest(deleteId).subscribe(
       {

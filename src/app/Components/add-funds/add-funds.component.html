@@ -46,7 +46,7 @@
     
                <label for="transactionAmount" class="mb-2 mr-sm-2">Transaction Amount</label>
     
-               <input type="number"class="form-control mb-2 mr-sm-2" [(ngModel)]="addFund.transactionAmount" name="transactionAmount" id="transactionAmount" #transactionAmount="ngModel"  pattern="^\d{0,10}(\.\d{0,2})?$" required>  
+               <input type="number"class="form-control mb-2 mr-sm-2" [(ngModel)]="addFund.transactionAmount" name="transactionAmount" id="transactionAmount" #transactionAmount="ngModel"  pattern="^\d{0,10}(\.\d{0,2})?$" placeholder="Enter the Amount in Rs." required>  
     
                <div *ngIf="transactionAmount.invalid &&(transactionAmount.dirty || transactionAmount.touched)">
     
@@ -66,7 +66,7 @@
     
               <label for="cardPin" class="mb-2 mr-sm-2">Pin</label>
     
-              <input type="password"class="form-control mb-2 mr-sm-2" [(ngModel)]="addFund.cardPin" name="cardPin" id="cardPin" #cardPin="ngModel" required>
+              <input type="password"class="form-control mb-2 mr-sm-2" [(ngModel)]="addFund.cardPin" name="cardPin" id="cardPin" #cardPin="ngModel"    placeholder="Enter your CardPin"required>
     
               <div *ngIf="cardPin.invalid &&(cardPin.dirty || cardPin.touched)">
     

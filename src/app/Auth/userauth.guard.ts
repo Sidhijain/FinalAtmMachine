@@ -11,7 +11,7 @@ const userId = sessionStorage.getItem("ID");
   console.log(isLoggedIn);
   console.log(userId);
 
-  if(isLoggedIn == "true" && (userId != null)){
+  if(isLoggedIn == "true" && (userId?.includes("user"))){
 
 
     return true;

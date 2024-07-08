@@ -44,7 +44,7 @@
                             <form (ngSubmit)="addRequest()" #requestForm="ngForm">
                                 <div class="form-group ">
 
-                                    <label for="request">Type of request </label>
+                                    <label for="request">Type of request<span style="color:red;">*</span></label>
 
                                     <select name="request" id="request" name="request" [(ngModel)]="userRequest.request"
                                         #request="ngModel" class="form-control" required>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Request description</label>
+                                    <label>Request description<span style="color:red;">*</span></label>
                                     <input type="text" placeholder="Write breif description" class="form-control"
                                         [(ngModel)]="userRequest.requestDesc" name="requestDesc" id="requestDesc"
                                         #requestDesc="ngModel" required>

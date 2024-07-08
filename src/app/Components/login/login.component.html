@@ -46,7 +46,7 @@
 
             <div class="form-group">
 
-                <label for="email">Email Id</label>
+                <label for="email">Email Id<span style="color:red;">*</span></label>
 
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" required #emailInput="ngModel" [(ngModel)]="userLoginDetails.emailId" email [disabled]="makeInputTagDisable && errorFromDatabse==''" placeholder="Enter your email id">
 
@@ -72,9 +72,9 @@
 
             <div class="form-group">
 
-                <label for="password">Password</label>
+                <label for="password">Password<span style="color:red;">*</span></label>
 
-                <input type="text" class="form-control" id="password" name="password" required #passwordInput="ngModel" [(ngModel)]="userLoginDetails.password" [disabled]="makeInputTagDisable && errorFromDatabse==''" placeholder="Enter your Password" minlength="8">
+                <input type="password" class="form-control" id="password" name="password" required #passwordInput="ngModel" [(ngModel)]="userLoginDetails.password" [disabled]="makeInputTagDisable && errorFromDatabse==''" placeholder="Enter your Password" minlength="8">
 
                 <div *ngIf="!isPasswordValid() && passwordInput.touched">
 

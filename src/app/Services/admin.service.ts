@@ -19,28 +19,16 @@ import { CardLimit } from 'src/Class/CardLimit';
 })
 
 export class AdminService {
-
- 
-
   constructor(private httpClient: HttpClient) { }
-
- 
-
   getAllPendingRequests(): Observable<any> {
-
     return this.httpClient.get("http://localhost:8090/admin/requests", { responseType: "json" });
-
   }
-
- 
 
   getAllCardLostRequests(request:string): Observable<any> {
-
     return this.httpClient.get("http://localhost:8090/admin/users/request/"+request,  { responseType: "json" });
-
   }
 
- 
+
 
   approveRequest(reqId: string): Observable<any> {
 

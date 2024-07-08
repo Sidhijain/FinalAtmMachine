@@ -21,7 +21,7 @@ import { UserService } from 'src/app/Services/user.service';
 export class ChangeUserPinComponent {
 
   constructor(private userService: UserService, private formBuilder:FormBuilder, private router : Router){}
-
+  sideNavStatus:boolean=false;
   
 
   generatedOtp:number=0;

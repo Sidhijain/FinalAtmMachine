@@ -47,7 +47,7 @@
               <label for="cardPin" class="mb-2 mr-sm-2">Pin</label>
 
               <input type="password" class="form-control mb-2 mr-sm-2" [(ngModel)]="checkBalance.cardPin" name="cardPin"
-                id="cardPin" #cardPin="ngModel" required>
+                id="cardPin" #cardPin="ngModel" placeholder="Enter your CardPin"required>
 
               <div *ngIf="cardPin.invalid &&(cardPin.dirty || cardPin.touched)">
 

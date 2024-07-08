@@ -168,7 +168,7 @@
 
                         <th>Expiry Date:</th>
 
-                        <td>{{cardDetails.validThrough}}</td>
+                        <td>{{cardDetails.validThrough|date}}</td>
 
                     </tr>
 
@@ -177,6 +177,14 @@
                         <th>Card Type:</th>
 
                         <td>{{cardDetails.cardType}}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Card Status:</th>
+
+                        <td>{{cardDetails.cardstatus}}</td>
 
                     </tr>
 

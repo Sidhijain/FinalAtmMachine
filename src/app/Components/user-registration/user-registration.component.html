@@ -44,7 +44,7 @@
 
         <div class="form-group">
 
-          <label for="username">User Name</label>
+          <label for="username">User Name<span style="color:red;">*</span></label>
 
           <input type="text" class="form-control" id="username" aria-describedby="emailHelp" #nameInput="ngModel" [(ngModel)]="userRegistration.userName" placeholder="Enter your Name" name="username" required [disabled]="otpSendingSpinner && errorFromDatabase==''" pattern="[A-Za-z]+">
 
@@ -68,7 +68,7 @@
 
         <div class="form-group">
 
-          <label for="dob">Date Of Birth</label>
+          <label for="dob">Date Of Birth<span style="color:red;">*</span></label>
 
           <input type="date" class="form-control" name="dob" [(ngModel)]="userRegistration.userDOB" id="dob" placeholder="Select the date"  required [disabled]="otpSendingSpinner && errorFromDatabase==''">
 
@@ -86,7 +86,7 @@
 
         <div class="form-group">
 
-            <label for="phoneNo">Phone Number</label>
+            <label for="phoneNo">Phone Number<span style="color:red;">*</span></label>
 
             <input type="text" class="form-control" id="phoneNo" name="phoneNumber" #phoneNumber="ngModel" required [(ngModel)]="userRegistration.phoneNo" placeholder="Enter your Phone Number eg.,+91...." [disabled]="otpSendingSpinner && errorFromDatabase==''" pattern="^\+91[6-9][0-9]{9}$">
 
@@ -112,7 +112,7 @@
 
         <div class="form-group">
 
-            <label for="aadharNo">Aadhar Number</label>
+            <label for="aadharNo">Aadhar Number<span style="color:red;">*</span></label>
 
             <input type="number" class="form-control" id="aadharNo" name="aadharNo" #aadharNumber="ngModel" [(ngModel)]="userRegistration.aadharNumber" placeholder="Enter your Aadhar Number" inputmode="decimal" required [disabled]="otpSendingSpinner && errorFromDatabase==''" pattern="^\d{12}$">
 
@@ -126,7 +126,7 @@
 
         <div class="form-group">
 
-            <label for="email">Email Id</label>
+            <label for="email">Email Id<span style="color:red;">*</span></label>
 
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" required email #emailInput="ngModel" [(ngModel)]="userRegistration.emailId" placeholder="Enter your email id" [disabled]="otpSendingSpinner && errorFromDatabase==''">
 
@@ -152,9 +152,9 @@
 
         <div class="form-group col-md-6">
 
-            <label for="password">Password</label>
+            <label for="password">Password<span style="color:red;">*</span></label>
 
-            <input type="text" class="form-control" id="password" name="password" #passwordInput="ngModel" required [(ngModel)]="userRegistration.password" placeholder="Enter your Password" [disabled]="otpSendingSpinner && errorFromDatabase==''" minlength="8">
+            <input type="password" class="form-control" id="password" name="password" #passwordInput="ngModel" required [(ngModel)]="userRegistration.password" placeholder="Enter your Password" [disabled]="otpSendingSpinner && errorFromDatabase==''" minlength="8">
 
             <div *ngIf="!isPasswordValid() && passwordInput.touched">
 
@@ -166,9 +166,9 @@
 
         <div class="form-group col-md-6">
 
-            <label for="cpassword">Confirm Password</label>
+            <label for="cpassword">Confirm Password<span style="color:red;">*</span></label>
 
-            <input type="text" class="form-control" id="cpassword" name="cpassword" [(ngModel)]="userRegistration.confirmPassword" #confirmPasswordInput="ngModel" placeholder="Enter your Password again" required [disabled]="otpSendingSpinner && errorFromDatabase==''">
+            <input type="password" class="form-control" id="cpassword" name="cpassword" [(ngModel)]="userRegistration.confirmPassword" #confirmPasswordInput="ngModel" placeholder="Enter your Password again" required [disabled]="otpSendingSpinner && errorFromDatabase==''">
 
             <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)">
 
@@ -194,7 +194,7 @@
 
             <div class="form-group">
 
-                <label for="street">Street</label>
+                <label for="street">Street<span style="color:red;">*</span></label>
 
                 <input type="text" class="form-control" id="street" name="street" [(ngModel)]="userRegistration.address.street" placeholder="Enter your street" [disabled]="otpSendingSpinner && errorFromDatabase==''">
 
@@ -204,7 +204,7 @@
 
             <div class="form-group col-md-5">
 
-                <label for="district">District</label>
+                <label for="district">District<span style="color:red;">*</span></label>
 
                 <input type="text" class="form-control" id="district" name="district" [(ngModel)]="userRegistration.address.district" placeholder="Enter your District" [disabled]="otpSendingSpinner && errorFromDatabase==''">
 
@@ -212,7 +212,7 @@
 
             <div class="form-group col-md-5 offset-md-1">
 
-                <label for="pincode">Pincode</label>
+                <label for="pincode">Pincode<span style="color:red;">*</span></label>
 
                 <input type="number" class="form-control" id="pincode" name="pincode" [(ngModel)]="userRegistration.address.pincode" placeholder="Enter your pincode" [disabled]="otpSendingSpinner && errorFromDatabase==''" inputmode="numeric">
 
@@ -222,7 +222,7 @@
 
             <div class="form-group">
 
-            <label for="state">Select a State:</label>
+            <label for="state">Select a State<span style="color:red;">*</span></label>
 
             <select id="state" name="state" [disabled]="otpSendingSpinner && errorFromDatabase==''" [(ngModel)]="userRegistration.address.state">
 

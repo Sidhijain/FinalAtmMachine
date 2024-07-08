@@ -13,7 +13,12 @@
 </head>
 
 <body>
-
+  <div class="container-fluid g-0 " style="padding-left: 0%;">
+    <app-navbar (sideNavToggled)="sideNavStatus=$event;"></app-navbar>
+    <main>
+        <app-sidebar [sideNavStatus]="sideNavStatus" [ngClass]="{'app-sidebar-open':sideNavStatus}"></app-sidebar>
+        <div class="display-area p-3" [ngClass]="{'display-area-shrink':sideNavStatus}"
+            style="padding: 0% !important;">
     <div class="d-flex flex-column justify-content-center align-items-center mt-5">
 
         <div class="mt-5" (click)="verifyemail()">
@@ -169,6 +174,9 @@
         </div>
 
      </div>
+    </div>
+  </main>
+</div>
 
 </body>
 

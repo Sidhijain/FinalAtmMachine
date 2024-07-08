@@ -51,7 +51,7 @@
 
                      <input type="number" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.transactionAmount"
                         name="transactionAmount" id="transactionAmount" #transactionAmount="ngModel"
-                        pattern="^\d{0,10}(\.\d{0,2})?$" required>
+                        pattern="^\d{0,10}(\.\d{0,2})?$" placeholder="Enter the Amount in Rs...." required>
 
                      <div *ngIf="transactionAmount.invalid &&(transactionAmount.dirty || transactionAmount.touched)">
 
@@ -76,9 +76,9 @@
                      <label for="toAccountNumber" class="mb-2 mr-sm-2">To Bank Account Number</label>
 
                      <input type="number" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.toAccountNumber"
-                        name="toAccountNumber" id="toAccountNumber" #toAccountNumber="ngModel" pattern="[0-9]{9,12}"
+                        name="toAccountNumber" id="toAccountNumber" #toAccountNumber="ngModel" pattern="[0-9]{9,12}" placeholder="Enter 12 digit Account number"
                         required>
-                         {{fundTransfer.toAccountNumber}}
+                       
 
                      <div *ngIf="toAccountNumber.invalid &&(toAccountNumber.dirty || toAccountNumber.touched)">
 
@@ -101,7 +101,7 @@
                      <label for="cardPin" class="mb-2 mr-sm-2">Pin</label>
 
                      <input type="password" class="form-control mb-2 mr-sm-2" [(ngModel)]="fundTransfer.cardPin"
-                        name="cardPin" id="cardPin" #cardPin="ngModel" required>
+                        name="cardPin" id="cardPin" #cardPin="ngModel" placeholder="Enter your CardPin" required>
 
                      <div *ngIf="cardPin.invalid &&(cardPin.dirty || cardPin.touched)">
 
